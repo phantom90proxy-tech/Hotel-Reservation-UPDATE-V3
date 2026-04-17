@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roomsy</title>
+  <link rel="icon" href="assets/logo.jpg" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="main.html">
+        <img src="assets/logo.jpg" alt="Roomsy Logo" style="height:32px; vertical-align:middle;">
+        Roomsy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="main.html"><i class="fas fa-home"></i> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="room.html"><i class="fas fa-bed"></i> Rooms</a></li>
+          <li class="nav-item"><a class="nav-link" href="bookings.html"><i class="fas fa-calendar-check"></i> My
+              Bookings <span class="badge bg-warning" id="bookingCount">0</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-phone" aria-hidden="true"></i>
+              Contact</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item" id="loginBtn">
+            <a href="login.html" class="btn btn-outline-light">
+              <i class="fas fa-user"></i> Login</a>
+          </li>
+          <li class="nav-item" id="logoutBtn" style="display: none;">
+            <button class="btn btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section" id="heroSection">
+    <div class="hero-content">
+      <h1>Enjoy A Luxury Experience</h1>
+      <p>Book your stay with us today!</p>
+    </div>
+  </section>
+
+  <!-- Booking CTA (restored, no wrapper overlay) -->
+  <section class="booking-cta py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <div class="bg-white p-4 rounded shadow">
+            <h4 class="fw-bold">Ready to book your stay?</h4>
+            <p class="text-muted">We moved the booking form to a dedicated page for a cleaner experience.</p>
+            <a href="reservation.html" class="btn btn-warning btn-lg px-5 fw-bold">Make a Reservation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 position-relative mb-4 mb-lg-0" data-aos="fade-right">
+          <div class="position-relative">
+            <img src="assets/reception.jpg" alt="Reception" class="img-fluid rounded shadow">
+            <div class="position-absolute bottom-0 start-0 bg-dark text-white p-3 rounded shadow" style="transform: translate(20px, 20px);">
+              <h5 class="m-0 fw-bold">25 Years of Service Experience</h5>
+            </div>
+            <div class="position-absolute top-0 end-0 bg-primary rounded" style="width: 120px; height: 120px; transform: translate(30%, -30%); z-index:-1;"></div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up">
+          <h2 class="fw-bold mb-3">About Roomsy</h2>
+          <p class="text-muted">We provide luxury rooms and world-class facilities for your perfect stay.</p>
+          <p class="text-muted mb-4">Our hotel is designed with your comfort in mind, offering a range of amenities to make your stay enjoyable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2 class="mb-4">Dining Area</h2>
+          <p>Indulge in a culinary experience like no other at our exquisite dining area. Our chefs prepare a variety of
+            dishes using the finest ingredients, ensuring a memorable meal for every guest.</p>
+          <p>Whether you're enjoying a leisurely breakfast or a romantic dinner, our dining area offers a warm and
+            inviting atmosphere, complemented by exceptional service.</p>
+        </div>
+        <div class="col-lg-6 text-center" data-aos="fade-left">
+          <img src="assets/dining-area.jpg" class="img-fluid rounded shadow" alt="Dining Area">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 position-relative mb-4 mb-lg-0" data-aos="fade-right">
+          <img src="assets/swimming_pool.jpg" alt="Swimming Pool" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <h2 class="fw-bold mb-3">Swimming Pool</h2>
+          <p class="text-muted">Dive into luxury at our stunning swimming pool, designed for relaxation and enjoyment.
+          </p>
+          <p class="text-muted mb-4">Whether you want to take a refreshing dip or lounge by the water, our pool area
+            offers the perfect escape.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2 class="mb-4">Spa</h2>
+          <p>Indulge in a rejuvenating experience at our luxurious spa. Our skilled therapists offer a range of
+            treatments designed to relax and revitalize you.</p>
+          <p>Whether you're looking for a soothing massage or a refreshing facial, our spa provides a tranquil escape
+            from the hustle and bustle of everyday life.</p>
+        </div>
+        <div class="col-lg-6 text-center" data-aos="fade-left">
+          <img src="assets/spa.jpg" class="img-fluid rounded shadow" alt="Spa">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Group Section (formerly Testimonials) -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-5" data-aos="zoom-in">
+          <h2 class="fw-bold">What Our Guests Say</h2>
+          <p class="text-muted">Read reviews from our satisfied customers</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12">
+          <!-- Organized group carousel: track contains original items followed by static duplicates for seamless looping -->
+          <div class="group-carousel" data-aos="fade-up">
+            <div class="group-track d-flex align-items-stretch">
+
+              <!-- original items -->
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="card-text">"Amazing experience! The rooms were clean, staff was friendly, and the
+                      facilities were top-notch. Will definitely come back!"</p>
+                    <h6 class="card-title mb-1">Sarah Johnson</h6>
+                    <small class="text-muted">Regular Guest</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="card-text">"Perfect location and excellent service. The spa treatments were incredible and
+                      the dining options were delicious."</p>
+                    <h6 class="card-title mb-1">Michael Chen</h6>
+                    <small class="text-muted">Business Traveler</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"Great family hotel with spacious rooms and kid-friendly amenities. The pool
+                      area was a hit with our children!"</p>
+                    <h6 class="card-title mb-1">Emma Rodriguez</h6>
+                    <small class="text-muted">Family Vacation</small>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"Fantastic stay! The staff went above and beyond to make our family feel
+                      welcome."</p>
+                    <h6 class="card-title mb-1">Angela Santos</h6>
+                    <small class="text-muted">Business Traveler</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"The hotel was fantastic! The staff were incredibly helpful and the amenities
+                      were top-notch."</p>
+                    <h6 class="card-title mb-1">Nicole Ramos</h6>
+                    <small class="text-muted">Leisure Traveler</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- duplicated items (static) to ensure seamless loop without relying on JS cloning at runtime -->
+              <div class="col-md-4 duplicate" aria-hidden="true">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="card-text">"Amazing experience! The rooms were clean, staff was friendly, and the
+                      facilities were top-notch. Will definitely come back!"</p>
+                    <h6 class="card-title mb-1">Sarah Johnson</h6>
+                    <small class="text-muted">Regular Guest</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 duplicate" aria-hidden="true">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="card-text">"Perfect location and excellent service. The spa treatments were incredible and
+                      the dining options were delicious."</p>
+                    <h6 class="card-title mb-1">Michael Chen</h6>
+                    <small class="text-muted">Business Traveler</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 duplicate" aria-hidden="true">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"Great family hotel with spacious rooms and kid-friendly amenities. The pool
+                      area was a hit with our children!"</p>
+                    <h6 class="card-title mb-1">Emma Rodriguez</h6>
+                    <small class="text-muted">Family Vacation</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 duplicate" aria-hidden="true">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"Fantastic stay! The staff went above and beyond to make our family feel
+                      welcome."</p>
+                    <h6 class="card-title mb-1">Angela Santos</h6>
+                    <small class="text-muted">Business Traveler</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 duplicate" aria-hidden="true">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star text-warning"></i>
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    </div>
+                    <p class="card-text">"The hotel was fantastic! The staff were incredibly helpful and the amenities
+                      were top-notch."</p>
+                    <h6 class="card-title mb-1">Nicole Ramos</h6>
+                    <small class="text-muted">Leisure Traveler</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-darkblue text-light pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h4 class="fw-bold text-warning">Roomsy</h4>
+          <div class="d-flex gap-3 my-3">
+            <a href="#" class="text-light fs-5"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-tiktok"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-github"></i></a>
+          </div>
+          <p class="small">&copy; 2025 All rights reserved | Made by GROUP 4</p>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">About Roomsy</a></li>
+            <li><a href="room.html" class="text-light text-decoration-none">Our Best Rooms</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Reservations</h5>
+          <p class="mb-1">Tel: 123 4567 8910</p>
+          <p class="mb-1">Email: roomsy@gmail.com</p>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Our Location</h5>
+          <p class="mb-1">938 Aurora Boulevard,</p>
+          <p class="mb-3">Cubao, Quezon City, Metro Manila</p>
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Email Address" id="newsletterEmail">
+            <button class="btn btn-warning" onclick="subscribeNewsletter()"><i class="bi bi-send"></i></button>
+          </div>
+          <small class="text-light mt-2 d-block">Subscribe to our newsletter for exclusive deals!</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+      aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="successToastMessage">Success!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert"
+      aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="errorToastMessage">Error!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="validationModalLabel">Please try again!</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="validationMessage">
+          Please fill out all the required fields before booking.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: false
+    });
+
+    // Check login status on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      let user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'block';
+      }
+
+      // Update booking count
+      updateBookingCount();
+    });
+
+    function updateBookingCount() {
+      let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+      document.getElementById('bookingCount').textContent = bookings.length;
+    }
+
+    // check if desired dates overlap with existing bookings for same room type
+    function isAvailable(checkin, checkout, roomType) {
+      let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+      let s2 = new Date(checkin), e2 = new Date(checkout);
+      return !bookings.some(b => {
+        if (b.roomType !== roomType) return false;
+        let s1 = new Date(b.checkin), e1 = new Date(b.checkout);
+        return s1 < e2 && s2 < e1; // overlap
+      });
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletterEmail').value.trim();
+      if (!email) {
+        showToast('error', 'Please enter your email address.');
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('error', 'Please enter a valid email address.');
+        return;
+      }
+
+      // Store subscriber
+      let subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
+      if (subscribers.includes(email)) {
+        showToast('warning', 'You are already subscribed!');
+        return;
+      }
+
+      subscribers.push(email);
+      localStorage.setItem('subscribers', JSON.stringify(subscribers));
+
+      showToast('success', 'Successfully subscribed to our newsletter!');
+      document.getElementById('newsletterEmail').value = '';
+    }
+
+    $(document).ready(function () {
+      function checkAvailability() {
+        let checkin = $("#checkin").val().trim();
+        let checkout = $("#checkout").val().trim();
+        let roomType = $("#roomType").val();
+        if (checkin && checkout && roomType) {
+          if (!isAvailable(checkin, checkout, roomType)) {
+            showToast('error', 'Selected room type unavailable for chosen dates.');
+          }
+        }
+      }
+
+      $("#checkin, #checkout, #roomType").change(checkAvailability);
+
+      $("#checkin").change(function () {
+        let minDate = new Date($(this).val());
+        minDate.setDate(minDate.getDate() + 1);
+        $("#checkout").attr('min', minDate.toISOString().split('T')[0]);
+      });
+
+      $("#reservationForm").submit(function (e) {
+        e.preventDefault();
+
+        // Show loading state
+        const bookBtn = document.getElementById('bookBtn');
+        const spinner = bookBtn.querySelector('.spinner-border');
+        bookBtn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        let checkin = $("#checkin").val().trim();
+        let checkout = $("#checkout").val().trim();
+        let roomType = $("#roomType").val();
+        let adults = $("#adults").val();
+        let children = $("#children").val();
+        let rooms = $("#rooms").val();
+        let message = "";
+
+        if (checkin === "" || checkout === "" || adults === "None" || rooms === "None") {
+          message = "Please fill out all the required fields before booking.";
+        } else if (new Date(checkout) <= new Date(checkin)) {
+          message = "Check-out date must be later than check-in date.";
+        } else if (new Date(checkin) < new Date()) {
+          message = "Check-in date cannot be in the past.";
+        } else if (!isAvailable(checkin, checkout, roomType)) {
+          message = "Selected room type is unavailable for these dates.";
+        }
+
+        if (message !== "") {
+          showToast('error', message);
+          // Hide loading state
+          bookBtn.disabled = false;
+          spinner.classList.add('d-none');
+        } else {
+          // Store booking in localStorage
+          let booking = {
+            id: Date.now(),
+            checkin: checkin,
+            checkout: checkout,
+            roomType: roomType,
+            adults: adults,
+            children: children,
+            rooms: rooms,
+            status: 'pending',
+            timestamp: new Date().toISOString()
+          };
+          let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+          bookings.push(booking);
+          localStorage.setItem('bookings', JSON.stringify(bookings));
+
+          // Update booking count
+          updateBookingCount();
+
+          // Show success message
+          showToast('success', 'Booking submitted successfully! Check your bookings.');
+
+          // Reset form
+          $("#reservationForm")[0].reset();
+
+          // Hide loading state
+          setTimeout(() => {
+            bookBtn.disabled = false;
+            spinner.classList.add('d-none');
+          }, 1000);
+        }
+      });
+    });
+
+    function showLoginModal() {
+      var myModal = new bootstrap.Modal(document.getElementById('loginModal'));
+      myModal.show();
+    }
+
+    function login() {
+      let username = document.getElementById('username').value;
+      let password = document.getElementById('password').value;
+
+      // Updated admin credentials per request
+      if (username === 'Admin@gmail.com' && password === '123456789') {
+        localStorage.setItem('user', JSON.stringify({ username: username, role: 'admin' }));
+        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'block';
+        showToast('success', 'Logged in as admin!');
+        // Redirect to reports or something
+        setTimeout(() => window.location.href = 'reports.html', 1000);
+      } else {
+        showToast('error', 'Invalid credentials!');
+      }
+    }
+
+    function logout() {
+  if (!confirm("Are you sure you want to logout?")) return;
+
+  localStorage.removeItem('user');
+  document.getElementById('loginBtn').style.display = 'block';
+  document.getElementById('logoutBtn').style.display = 'none';
+  showToast('success', 'Logged out!');
+}
+    function showToast(type, message) {
+      const toastElement = document.getElementById(type === 'success' ? 'successToast' : 'errorToast');
+      const toastMessage = document.getElementById(type === 'success' ? 'successToastMessage' : 'errorToastMessage');
+      toastMessage.textContent = message;
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+
+    // Ensure testimonial track is duplicated for seamless looping (prevents visible cut)
+    (function () {
+      // Static duplicates are provided in the HTML to guarantee seamless looping.
+      // This helper only runs when there aren't enough items (fallback for older edits).
+      function ensureLoopingTestimonials() {
+        const track = document.querySelector('.group-track');
+        if (!track) return;
+        // If already loop-ready (we expect at least 6 items: original + duplicate), skip
+        if (track.children.length >= 6) {
+          track.dataset.looped = 'true';
+          return;
+        }
+
+        // Otherwise clone current children to reach a duplicated sequence
+        const items = Array.from(track.children);
+        if (items.length === 0) return;
+        items.forEach(item => {
+          const clone = item.cloneNode(true);
+          track.appendChild(clone);
+        });
+        track.dataset.looped = 'true';
+      }
+
+      document.addEventListener('DOMContentLoaded', ensureLoopingTestimonials);
+      window.addEventListener('resize', ensureLoopingTestimonials);
+    })();
+
+    // Prevent AOS from animating items inside the carousel (removes transform jumps)
+    (function () {
+      function disableAOSInCarousel() {
+        const track = document.querySelector('.group-track');
+        if (!track) return;
+        const animatedEls = track.querySelectorAll('[data-aos]');
+        animatedEls.forEach(el => {
+          el.removeAttribute('data-aos');
+          el.removeAttribute('data-aos-delay');
+          el.classList.remove('aos-animate', 'aos-init');
+          el.style.opacity = '';
+          el.style.transform = '';
+        });
+        // Recalculate AOS to ignore removed elements
+        if (window.AOS && typeof AOS.refresh === 'function') AOS.refresh();
+      }
+      document.addEventListener('DOMContentLoaded', disableAOSInCarousel);
+    })();
+
+    // Accessibility & polish: make duplicates inert for interaction
+    (function () {
+      const track = document.querySelector('.group-track');
+      if (track) {
+        track.querySelectorAll('.duplicate').forEach(el => {
+          el.setAttribute('aria-hidden', 'true');
+          el.setAttribute('tabindex', '-1');
+        });
+      }
+    })();
+
+    // Calculate pixel-perfect scroll distance and set CSS variables for smooth looping
+    (function () {
+      function setupCarouselVars() {
+        const track = document.querySelector('.group-track');
+        if (!track) return;
+        // We expect the track to contain original items followed by duplicates, totalWidth should be twice originals
+        const children = Array.from(track.children);
+        if (children.length === 0) return;
+
+        // Measure width of half the track (original sequence)
+        // If duplicates exist, assume first half length equals second half
+        const totalWidth = track.scrollWidth;
+        let scrollDistance = '-50%';
+
+        // If track has at least double items, compute pixel distance for half the scroll width
+        if (children.length >= 2) {
+          // find midpoint by summing widths until half of total
+          let half = totalWidth / 2;
+          // use pixel value for transform to avoid percent rounding issues
+          scrollDistance = `-${Math.round(half)}px`;
+        }
+
+        // set CSS variables on the track
+        track.style.setProperty('--scroll-distance', scrollDistance);
+
+        // Optionally adjust duration based on width for consistent speed
+        const duration = Math.max(18, Math.round((Math.abs(parseInt(scrollDistance)) || totalWidth) / 40));
+        track.style.setProperty('--carousel-duration', `${duration}s`);
+      }
+
+      window.addEventListener('load', setupCarouselVars);
+      window.addEventListener('resize', function () {
+        // debounce
+        clearTimeout(window._carouselResizeTimer);
+        window._carouselResizeTimer = setTimeout(setupCarouselVars, 150);
+      });
+    })();
+    
+  </script>
+
+  <script src="js/wave.js"></script>
+</body>
+
+</html>

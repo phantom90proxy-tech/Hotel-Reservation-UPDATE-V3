@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make a Reservation</title>
+  <link rel="icon" href="assets/logo.jpg" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="style.css" rel="stylesheet">
+  <!-- flatpickr datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="main.html">
+        <img src="assets/logo.jpg" alt="Roomsy Logo" style="height:32px; vertical-align:middle;">
+        Roomsy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="main.html"><i class="fas fa-home"></i> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="room.html"><i class="fas fa-bed"></i> Rooms</a></li>
+          <li class="nav-item"><a class="nav-link" href="bookings.html"><i class="fas fa-calendar-check"></i> My
+              Bookings <span class="badge bg-warning" id="bookingCount">0</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-phone" aria-hidden="true"></i>
+              Contact</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item" id="loginBtn">
+            <a href="login.html" class="btn btn-outline-light">
+              <i class="fas fa-user"></i> Login</a>
+          </li>
+          <li class="nav-item" id="logoutBtn" style="display: none;">
+            <button class="btn btn-outline-light" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="booking-section py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="bg-white p-3 rounded shadow">
+            <!-- Top selectors: Guests | Check-in | Check-out -->
+            <div class="d-flex gap-3 align-items-center mb-3 top-selectors">
+              <div class="selector card flex-fill p-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <small class="text-muted">Guests</small>
+                    <div id="guestSummary" class="fw-bold">1 adult, 0 children</div>
+                  </div>
+                  <div>
+                    <button class="btn btn-outline-secondary btn-sm" id="openGuestModal">Change</button>
+                  </div>
+                </div>
+              </div>
+              <div class="selector card p-2">
+                <small class="text-muted">Check-in</small>
+                <input id="checkinInput" class="form-control" placeholder="Select check-in" readonly>
+              </div>
+              <div class="selector card p-2">
+                <small class="text-muted">Check-out</small>
+                <input id="checkoutInput" class="form-control" placeholder="Select check-out" readonly>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-8">
+                <!-- Calendar placeholder (static April 2026 layout similar to screenshot) -->
+                <div class="calendar card p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="m-0">April 2026</h5>
+                    <div class="text-muted">Special Codes or Rates</div>
+                  </div>
+                  <div class="calendar-grid">
+                    <div id="flatCalendar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Right action area: price and search -->
+                <div class="card p-3 mb-3">
+                  <div class="small text-muted">From</div>
+                  <h4 class="fw-bold mt-1">P10,999 total for 1 night</h4>
+                  <small class="text-muted">Excluding taxes and fees</small>
+                  <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <a href="bookings.html" class="btn btn-link">Cancel</a>
+                    <button class="btn btn-primary btn-lg">SEARCH</button>
+                  </div>
+                </div>
+                <!-- Room selection area moved to bottom -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms selection placed below the main section -->
+  <section class="py-4">
+    <div class="container">
+      <h4>Select a Room</h4>
+      <div id="roomsList" class="row g-3 mt-3">
+        <!-- sample rooms - selectable -->
+        <div class="col-md-4">
+          <div class="card room-card selectable" data-room="superior">
+            <img src="assets/room1.jpg" class="card-img-top" alt="Superior">
+            <div class="card-body">
+              <h5 class="card-title">Superior</h5>
+              <p class="card-text">$50/night</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card room-card selectable" data-room="deluxe">
+            <img src="assets/room2.jpg" class="card-img-top" alt="Deluxe">
+            <div class="card-body">
+              <h5 class="card-title">Deluxe</h5>
+              <p class="card-text">$55/night</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card room-card selectable" data-room="deluxe-double">
+            <img src="assets/room3.jpg" class="card-img-top" alt="Deluxe Double">
+            <div class="card-body">
+              <h5 class="card-title">Deluxe Double</h5>
+              <p class="card-text">$150/night</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toasts and Modals (copied from main.html) -->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="successToastMessage">Success!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="errorToastMessage">Error!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="validationModalLabel">Please try again!</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="validationMessage">
+          Please fill out all the required fields before booking.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+  AOS.init({
+    duration: 1000,
+    once: false
+  });
+
+  // Check login status on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      document.getElementById('loginBtn').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'block';
+    }
+    
+    // Update booking count
+    updateBookingCount();
+  });
+
+  function updateBookingCount() {
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    document.getElementById('bookingCount').textContent = bookings.length;
+  }
+
+  // check if desired dates overlap with existing bookings for same room type
+  function isAvailable(checkin, checkout, roomType) {
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    let s2 = new Date(checkin), e2 = new Date(checkout);
+    return !bookings.some(b => {
+      if (b.roomType !== roomType) return false;
+      let s1 = new Date(b.checkin), e1 = new Date(b.checkout);
+      return s1 < e2 && s2 < e1; // overlap
+    });
+  }
+
+  // Initialize an inline flatpickr calendar and sync with inputs
+  (function(){
+    const flatInline = flatpickr('#flatCalendar', {
+      mode: 'range',
+      inline: true,
+      minDate: 'today',
+      onChange: function(selectedDates){
+        if (selectedDates.length >= 1) {
+          fpCheckin.setDate(selectedDates[0], true);
+          checkinInput.value = fpCheckin.input.value;
+        }
+        if (selectedDates.length >= 2) {
+          fpCheckout.setDate(selectedDates[1], true);
+          checkoutInput.value = fpCheckout.input.value;
+        }
+      }
+    });
+
+    function checkAvailability(){
+      const checkinISO = checkinInput.value;
+      const checkoutISO = checkoutInput.value;
+      if (!checkinISO || !checkoutISO || !selectedRoom) return;
+      if (!isAvailable(checkinISO, checkoutISO, selectedRoom)) {
+        showToast('error','Selected room type unavailable for chosen dates.');
+      }
+    }
+
+    // call availability when inputs change
+    checkinInput.addEventListener('change', checkAvailability);
+    checkoutInput.addEventListener('change', checkAvailability);
+
+    // when room selection changes, check availability
+    document.querySelectorAll('.selectable').forEach(card=>{
+      card.addEventListener('click', ()=>{ setTimeout(checkAvailability, 50); });
+    });
+  })();
+
+  function showLoginModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    myModal.show();
+  }
+
+  function login() {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    
+    // Updated admin credentials per request
+    if (username === 'Admin@gmail.com' && password === '123456789') {
+      localStorage.setItem('user', JSON.stringify({ username: username, role: 'admin' }));
+      bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+      document.getElementById('loginBtn').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'block';
+      showToast('success', 'Logged in as admin!');
+      // Redirect to reports or something
+      setTimeout(() => window.location.href = 'reports.html', 1000);
+    } else {
+      showToast('error', 'Invalid credentials!');
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('user');
+    document.getElementById('loginBtn').style.display = 'block';
+    document.getElementById('logoutBtn').style.display = 'none';
+    showToast('success', 'Logged out!');
+  }
+
+  function showToast(type, message) {
+    const toastElement = document.getElementById(type === 'success' ? 'successToast' : 'errorToast');
+    const toastMessage = document.getElementById(type === 'success' ? 'successToastMessage' : 'errorToastMessage');
+    toastMessage.textContent = message;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+  }
+  </script>
+
+  <!-- Guest Modal -->
+  <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="guestModalLabel">Guests</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Adults (Ages 12 or above)</label>
+            <div class="d-flex justify-content-between align-items-center">
+              <button class="btn btn-outline-secondary" id="adultMinus">-</button>
+              <div id="adultCount">1</div>
+              <button class="btn btn-outline-secondary" id="adultPlus">+</button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Children (Ages 0-11)</label>
+            <div class="d-flex justify-content-between align-items-center">
+              <button class="btn btn-outline-secondary" id="childMinus">-</button>
+              <div id="childCount">0</div>
+              <button class="btn btn-outline-secondary" id="childPlus">+</button>
+            </div>
+              <div id="childAgesContainer" class="mt-3" style="display:none;">
+                <!-- child age inputs will be injected here -->
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="guestDone">DONE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Guest modal logic
+    (function(){
+      let adults = 1, children = 0;
+      const adultCount = document.getElementById('adultCount');
+      const childCount = document.getElementById('childCount');
+      const guestSummary = document.getElementById('guestSummary');
+
+      let childAges = [];
+      function renderChildAgeInputs(){
+        const container = document.getElementById('childAgesContainer');
+        container.innerHTML = '';
+        if (children > 0) {
+          container.style.display = '';
+          for (let i=0;i<children;i++){
+            const div = document.createElement('div');
+            div.className = 'mb-2';
+            div.innerHTML = `<label class="form-label">Child ${i+1} Age*</label><input type="number" min="0" max="11" class="form-control child-age-input" data-index="${i}" value="${childAges[i]||0}">`;
+            container.appendChild(div);
+          }
+        } else {
+          container.style.display = 'none';
+          childAges = [];
+        }
+      }
+
+      function updateSummary(){
+        guestSummary.textContent = `${adults} adult${adults>1? 's':''}, ${children} children`;
+        renderChildAgeInputs();
+      }
+
+      document.getElementById('openGuestModal').addEventListener('click', ()=>{
+        var gm = new bootstrap.Modal(document.getElementById('guestModal'));
+        gm.show();
+      });
+
+  document.getElementById('adultPlus').addEventListener('click', ()=>{ adults++; adultCount.textContent = adults; updateSummary(); });
+  document.getElementById('adultMinus').addEventListener('click', ()=>{ if(adults>1) adults--; adultCount.textContent = adults; updateSummary(); });
+  document.getElementById('childPlus').addEventListener('click', ()=>{ children++; childCount.textContent = children; updateSummary(); });
+  document.getElementById('childMinus').addEventListener('click', ()=>{ if(children>0) children--; childCount.textContent = children; updateSummary(); });
+
+      document.getElementById('guestDone').addEventListener('click', ()=>{
+        var inst = bootstrap.Modal.getInstance(document.getElementById('guestModal'));
+        if (inst) inst.hide();
+      });
+
+      // Initialize summary
+      updateSummary();
+
+      // handle child age input changes (event delegation)
+      document.getElementById('childAgesContainer').addEventListener('input', function(e){
+        if (e.target && e.target.classList.contains('child-age-input')){
+          const idx = parseInt(e.target.getAttribute('data-index'));
+          childAges[idx] = e.target.value;
+        }
+      });
+
+      // Promo code UI (toggleable)
+      const promoHtml = `<div class="mt-3"><button class="btn btn-outline-secondary" id="promoToggle">Apply Promo Code</button><div id="promoPanel" style="display:none;" class="mt-2"><div class="d-flex"><select class="form-select me-2" id="promoSelect"><option>Promo Code</option></select><input class="form-control" id="promoInput" placeholder="Enter Code"></div><div class="text-end mt-2"><button class="btn btn-primary" id="applyPromo">APPLY</button></div></div></div>`;
+      const topSelectors = document.querySelector('.top-selectors');
+      topSelectors.insertAdjacentHTML('beforeend', promoHtml);
+      document.getElementById('promoToggle').addEventListener('click', ()=>{ const p=document.getElementById('promoPanel'); p.style.display = (p.style.display==='none'?'':'none'); });
+
+      let appliedPromo = null;
+      document.getElementById('applyPromo').addEventListener('click', ()=>{
+        const code = document.getElementById('promoInput').value.trim();
+        if (!code) { alert('Enter a promo code'); return; }
+        appliedPromo = code;
+        alert('Promo applied: '+code);
+      });
+
+      // initialize flatpickr for checkin/checkout inputs
+      let selectedRoom = null;
+      const checkinInput = document.getElementById('checkinInput');
+      const checkoutInput = document.getElementById('checkoutInput');
+      const fpCheckin = flatpickr(checkinInput, {
+        minDate: 'today',
+        onChange: function(selectedDates, dateStr){
+          // set minimum for checkout to next day
+          if (selectedDates.length) {
+            const min = new Date(selectedDates[0]);
+            min.setDate(min.getDate()+1);
+            fpCheckout.set('minDate', min);
+          }
+        }
+      });
+      const fpCheckout = flatpickr(checkoutInput, { minDate: new Date().fp_incr(1) });
+
+      // room selection logic
+      document.querySelectorAll('.selectable').forEach(card=>{
+        card.addEventListener('click', ()=>{
+          document.querySelectorAll('.selectable').forEach(c=>c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedRoom = card.getAttribute('data-room');
+        });
+      });
+
+      // Use the SEARCH button to create booking with real values
+      document.querySelector('.btn.btn-primary.btn-lg').addEventListener('click', function(){
+        const checkinISO = checkinInput.value;
+        const checkoutISO = checkoutInput.value;
+        if (!checkinISO || !checkoutISO) { showToast('error','Please select check-in and check-out dates.'); return; }
+        if (!selectedRoom) { showToast('error','Please select a room below.'); return; }
+  const booking = { id: Date.now(), checkin: checkinISO, checkout: checkoutISO, roomType: selectedRoom, adults: adults, children: children, childAges: childAges, promo: appliedPromo, rooms: 1, status: 'pending', timestamp: new Date().toISOString() };
+        let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+        bookings.push(booking);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+  showToast('success','Booking submitted successfully!');
+  setTimeout(()=> window.location.href = 'addons.html', 800);
+      });
+    })();
+  </script>
+</body>
+</html>

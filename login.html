@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roomsy Login</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS at the end of body -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+/* =========================
+   1. RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   2. BODY / GLOBAL LAYOUT
+========================= */
+body {
+  background: linear-gradient(135deg, #5b9cfe, #8bb8fc);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* =========================
+   3. BACKGROUND (WAVES)
+========================= */
+section {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.wave {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background: url('assets/wave.png');
+  background-size: 1000px 100px;
+}
+
+.wave1 { animation: animate 30s linear infinite; z-index: 1; opacity: 1; bottom: 0; }
+.wave2 { animation: animate2 15s linear infinite; z-index: 2; opacity: 0.5; bottom: 10px; }
+.wave3 { animation: animate 30s linear infinite; z-index: 3; opacity: 0.2; bottom: 15px; }
+.wave4 { animation: animate2 5s linear infinite; z-index: 4; opacity: 0.7; bottom: 20px; }
+
+/* Wave rising effect */
+.wave-rise .wave1,
+.wave-rise .wave2,
+.wave-rise .wave3,
+.wave-rise .wave4 {
+  transition: bottom 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.wave-rise .wave1 { bottom: 100%; opacity: 1; }
+.wave-rise .wave2 { bottom: 105%; opacity: 0.8; }
+.wave-rise .wave3 { bottom: 110%; opacity: 0.6; }
+.wave-rise .wave4 { bottom: 115%; opacity: 0.9; }
+
+/* White overlay transition */
+.white-water {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: white;
+  z-index: 50;
+  transition: height 1s ease-in-out;
+}
+
+.white-water.expand {
+  height: 100%;
+}
+
+/* =========================
+   4. LOGIN CONTAINER
+========================= */
+.login-container {
+  width: 900px;
+  height: 500px;
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  background: white;
+  position: relative;
+  z-index: 10;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 18px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  background: red;
+  transform: scale(1.1);
+}
+
+/* Animate LEFT SIDE */
+.left-side {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+  transition: transform 0.5s ease;}
+
+.left-side h3 {
+  font-weight: bold;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #72aafe;
+}
+
+/* =========================
+   6. RIGHT SIDE (IMAGE)
+========================= */
+.right-side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: url('assets/main.jpg') center/cover no-repeat;
+  transition: transform 1s ease-in-out;
+  z-index: 5;
+}
+
+/* Slide animation */
+.login-container.register-mode .right-side {
+  width: 100%;          /* take full width */
+  transform: translateX(-100%);
+}
+
+
+/* Move form to the RIGHT */
+.login-container.register-mode .left-side {
+  transform: translateX(100%);
+}
+/* Badge */
+.badge-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #ffc107;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Overlay card */
+.overlay-card {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* =========================
+   7. BUTTONS
+========================= */
+.btn-login {
+  background: #ffc107;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-login:hover {
+  background: #e0a800;
+}
+
+/* =========================
+   8. ANIMATIONS
+========================= */
+@keyframes animate {
+  0% { background-position-x: 0; }
+  100% { background-position-x: 1000px; }
+}
+
+@keyframes animate2 {
+  0% { background-position-x: 0; }
+  100% { background-position-x: -1000px; }
+}
+
+/* Fade animation */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+</style>
+</head>
+
+<body>
+<section>
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+    <div class="wave wave4"></div>
+</section>
+<div class="white-water" id="whiteWater"></div>
+<div class="login-container">
+<button class="close-btn" onclick="goHome()">
+  <i class="fas fa-times"></i>
+</button>
+  <!-- LEFT SIDE -->
+  <div class="left-side">
+    
+    <h5 class="text-muted mb-2">
+      <img src="assets/logo.jpg" style="height:30px;"> Roomsy
+    </h5>
+
+    <h3>Welcome Back</h3>
+    <p class="text-muted">Login to continue your stay experience</p>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        <input type="email" id="email" class="form-control" placeholder="Enter email">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+        <input type="password" id="password" class="form-control" placeholder="Enter password">
+      </div>
+    </div>
+
+     <div class="mb-3" id="confirmBox" style="display:none;">
+  <label>Confirm Password</label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password">
+  </div>
+</div>
+
+    <button class="btn btn-login w-100 mb-3" onclick="login()">
+      <i class="fas fa-sign-in-alt"></i> Login
+    </button>
+
+   <p class="text-center small" id="toggleText">
+  Don’t have an account? <a href="#" id="registerBtn">Register</a>
+</p>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="right-side" id="rightside">
+
+    <div class="badge-box">
+      Luxury Experience
+    </div>
+
+    <div class="overlay-card">
+      <strong>✔ Booking Made Easy</strong><br>
+      Enjoy your stay with Roomsy
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function login() {
+  let email = document.getElementById('email').value;
+  let password = document.getElementById('password').value;
+  let confirmPassword = document.getElementById('confirmPassword')?.value;
+
+  let users = JSON.parse(localStorage.getItem('users')) || [];
+
+  // =========================
+  // REGISTER MODE
+  // =========================
+  if (isRegister) {
+
+    if (!email || !password || !confirmPassword) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    let existingUser = users.find(user => user.email === email);
+
+    if (existingUser) {
+      alert("Account already exists!");
+      return;
+    }
+
+    users.push({ email, password });
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert("Account created successfully!");
+
+// Auto login after register
+localStorage.setItem('user', JSON.stringify({ email: email }));
+
+// Redirect to main page
+window.location.href = "main.html";
+
+   
+    return;
+  }
+
+ // =========================
+// LOGIN MODE
+// =========================
+if (!email || !password) {
+  alert("Please fill all fields!");
+  return;
+}
+
+let user = users.find(user => user.email === email && user.password === password);
+
+if (user) {
+  // Normal user login
+  localStorage.setItem('user', JSON.stringify({ email: email, role: 'user' }));
+  alert("Login successful!");
+  window.location.href = "main.html";
+
+} else if (email.toLowerCase() === "admin@gmail.com" && password === "123456789") {
+  // Admin login
+  localStorage.setItem('user', JSON.stringify({ email: email, role: 'admin' }));
+  alert("Admin login successful!");
+  window.location.href = "reports.html"; // go directly to reports
+
+} else {
+  alert("Invalid email or password!");
+}
+}
+
+function goHome() {
+  const section = document.querySelector('section'); // waves container
+  section.classList.add('wave-rise'); // trigger wave rising
+
+  const whiteWater = document.getElementById('whiteWater');
+  whiteWater.classList.add('expand'); // solid white fills screen
+
+  // Fade out login box
+  const loginBox = document.querySelector('.login-container');
+  loginBox.style.transition = 'opacity 1s ease';
+  loginBox.style.opacity = 0;
+
+  // Redirect after animation
+  setTimeout(() => {
+    window.location.href = "main.html";
+  }, 1000); // match transition duration
+}
+const loginContainer = document.querySelector('.login-container');
+const leftSide = document.querySelector('.left-side');
+const toggleText = document.getElementById('toggleText');
+const btn = document.querySelector('.btn-login');
+
+let isRegister = false;
+
+const confirmBox = document.getElementById('confirmBox');
+
+toggleText.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (e.target.tagName !== 'A') return;
+
+  // STEP 1: FADE OUT FORM ONLY
+  leftSide.classList.add('fade-out');
+
+  setTimeout(() => {
+
+    isRegister = !isRegister;
+
+    // STEP 2: CHANGE CONTENT
+    if (isRegister) {
+      leftSide.querySelector('h3').textContent = "Create Account";
+      leftSide.querySelector('p').textContent = "Sign up to start your stay experience";
+      btn.innerHTML = '<i class="fas fa-user-plus"></i> Register';
+      toggleText.innerHTML = 'Already have an account? <a href="#">Login</a>';
+      confirmBox.style.display = "block";
+    } else {
+      leftSide.querySelector('h3').textContent = "Welcome Back";
+      leftSide.querySelector('p').textContent = "Login to continue your stay experience";
+      btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+      toggleText.innerHTML = 'Don’t have an account? <a href="#">Register</a>';
+      confirmBox.style.display = "none";
+    }
+
+    // STEP 3: SLIDE (AFTER FADE)
+    loginContainer.classList.toggle('register-mode');
+
+    // STEP 4: FADE IN NEW FORM
+    leftSide.classList.remove('fade-out');
+    leftSide.classList.add('fade-in');
+
+    setTimeout(() => {
+      leftSide.classList.remove('fade-in');
+    }, 500);
+
+  }, 500); // wait for fade-out to finish
+});
+</script>
+
+</body>
+</html>

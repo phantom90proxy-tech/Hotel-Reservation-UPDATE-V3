@@ -1,0 +1,201 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+footer {
+    margin-top: auto;
+}
+
+body {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      background-color: #fff;
+    }
+    .navbar-dark {
+      background: #0d1b2a !important;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: gold !important;
+    }
+    .hero-section {
+      background: url('assets/main.jpg') center/cover no-repeat;
+      min-height: 80vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .price-tag {
+      background: #f7a11b;
+      color: #fff;
+      padding: 5px 10px;
+      font-weight: bold;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      border-radius: 5px;
+    }
+    .room-card img {
+      height: 220px;
+      object-fit: cover;
+    }
+    .navbar-dark .nav-link:hover {
+      color: rgb(199, 186, 12);
+      margin: 0 10px;
+    }
+    .footer-darkblue {
+    background-color: #0d1b2a !important; 
+    }
+  
+    body {  
+        background: #ffffff; 
+        color: #000000; 
+    }
+    #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0d1b2a; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease; 
+    }
+    body.loaded #loader {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .spinner-border {
+        width: 5rem;
+        height: 5rem;
+        border-width: 0.5rem;
+    }
+    .booking-section {
+        margin-top: -50px; 
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Reservation page specific styles */
+    .top-selectors .selector {
+      min-height: 70px;
+      border-radius: 6px;
+    }
+    .top-selectors .selector .btn {
+      min-width: 80px;
+    }
+    .calendar { background: #fff; }
+    .calendar .weekday-row .w-14, .calendar .day-row .w-14 { flex: 1 0 14%; }
+    .calendar .day-row .w-14 { padding: 10px 6px; border: 1px solid transparent; }
+    .calendar .day-row .w-14.muted { color: #888; position: relative; }
+    .calendar .day-row .w-14.muted::after { content: "\00d7"; position: absolute; right:6px; top:4px; color:#bbb; transform: rotate(25deg); }
+    .calendar-grid { border-top:1px solid #eee; }
+    .w-14 { width: 14%; }
+
+    /* flatpickr small adjustments */
+    #flatCalendar .flatpickr-months { display:none; }
+    #flatCalendar .flatpickr-innerContainer { padding:0; }
+
+    .selectable { cursor: pointer; }
+    .selectable.selected { border: 2px solid #f7a11b; }
+    .room-card img { height: 180px; object-fit: cover; }
+
+    .booking-section .form-control,
+    .booking-section .form-select {
+        border: 1px solid #f0ad4e; 
+        border-radius: 8px;
+    }
+    .booking-section .btn-warning:hover {
+        background-color: #090870; 
+        color: gold;
+        border: none;
+    }
+    .bg-darkblue {
+        background-color: darkblue !important;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px rgba(255, 251, 0, 0.411);
+        z-index: 2;
+        transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+    }
+    .card {
+        transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+    }
+
+    /* Group carousel (organized) */
+.group-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.group-track {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  flex-wrap: wrap; /* fallback on small screens */
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+.group-track > .col-md-4 {
+  flex: 0 0 280px;
+  max-width: 280px;
+  box-sizing: border-box;
+}
+.group-track .card { height: 100%; }
+.group-track .card-body { padding: 1rem; }
+
+/* Desktop: enable infinite scrolling animation. The HTML includes static duplicates so translate(-50%) creates a seamless loop */
+@media (min-width: 900px) {
+  .group-track {
+    flex-wrap: nowrap; /* keep in a single row for scrolling */
+    animation: group-scroll var(--carousel-duration, 30s) linear infinite;
+  }
+}
+
+@keyframes group-scroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(var(--scroll-distance, -50%), 0, 0); }
+}
+
+/* Small-screen fallback: use grid-like stacking */
+@media (max-width: 899px) {
+  .group-track { gap: 1.25rem; }
+  .group-track > .col-md-4 { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* Minor polish: reduce card hover scaling inside carousel to avoid layout jank */
+.group-track .card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.group-track .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+
+/* End of carousel styles */
+
+
+
